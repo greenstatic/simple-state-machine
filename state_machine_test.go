@@ -3,7 +3,7 @@ package ssm_test
 import (
 	"testing"
 
-	"github.com/markdaws/simple-state-machine"
+	"github.com/greenstatic/simple-state-machine"
 	"github.com/stretchr/testify/require"
 )
 

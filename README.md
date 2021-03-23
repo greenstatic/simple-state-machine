@@ -1,24 +1,30 @@
-# simple-state-machine
-golang based state machine library, for creating simple state machines to handle workflows. Based on the https://github.com/dotnet-state-machine/stateless project.
+# Simple State Machine
+Go based state machine library, for creating simple state machines to handle workflows. 
+Based on the 
+[https://github.com/dotnet-state-machine/stateless project](https://github.com/dotnet-state-machine/stateless project).
+
+This is a fork of: [https://github.com/markdaws/simple-state-machine](https://github.com/markdaws/simple-state-machine).
 
 ## Documentation
-See [godoc](https://godoc.org/github.com/markdaws/simple-state-machine)
+See [godoc](https://godoc.org/github.com/greenstatic/simple-state-machine)
 
 ## Installation
 ```bash
-go get github.com/markdaws/simple-state-machine
+go get github.com/greenstatic/simple-state-machine
 ```
 
 ## Package
 ```go
-import "github.com/markdaws/simple-state-machine"
+import "github.com/greenstatic/simple-state-machine"
 ```
 
 ## Usage
-See state_machine_test.go and examples/main.go for examples on how to use this library.
+See `state_machine_test.go` and `examples/main.go` for examples on how to use this library.
 
 ## State Machine creation
-To use the state machine, you need to define all the states, and triggers.  you then create a state machine with an initial state, and configure the state to show how the triggers move between the various states.
+To use the state machine, you need to define all the states, and triggers.
+You then create a state machine with an initial state, and configure the state to show how the triggers move between 
+the various states.
 
 ```go
 off := ssm.State{Name: "off"}
@@ -69,7 +75,9 @@ for {
 ```
 
 ## Entry/Exit events
-You can specify a handler that will fire when a state is entered and exited.  You can also get more fine grained and specify that a handler should only fire when transitioning to a state from a certain trigger.
+You can specify a handler that will fire when a state is entered and exited. 
+You can also get more fine grained and specify that a handler should only fire when transitioning to a state from a 
+certain trigger.
 
 ```go
 s1 := ssm.State{Name: "s1"}
@@ -98,7 +106,9 @@ cfg.OnEnterFrom(tr2, func(ctx interface{}) { fmt.Println("s2 enter from tr2") })
 ```
 
 ## Parameterized Triggers
-When you fire a trigger, you can pass along some data that will be passed to the OnEnter from handler if you specified one.
+When you fire a trigger, you can pass along some data that will be passed to the OnEnter from handler if you 
+specified one.
+
 ```go
 s1 := ssm.State{Name: "s1"}
 s2 := ssm.State{Name: "s2"}
@@ -133,18 +143,25 @@ cfg.PermitIt(tr, s2, func(){ return canITransition })
 ```
 
 ## Substates
-You can specify that one state is a substate of another. For example if you have a telephone call, you could be in a "Connected" state but also be in the "OnHold" state, when you are on hold in a call you are still connected, so in this scenario OnHold is considered to be a substate of Connected.
+You can specify that one state is a substate of another. For example if you have a telephone call, you could be in a 
+"Connected" state but also be in the "OnHold" state, when you are on hold in a call you are still connected, so in this 
+scenario OnHold is considered to be a substate of Connected.
 
-When you are in a substate StateMachine.IsInState will return true if you pass a parent state of the current state, so if the app was in the OnHold state, doing sm.IsInState(Connected) would also return true.
+When you are in a substate StateMachine.IsInState will return true if you pass a parent state of the current state, so 
+if the app was in the OnHold state, doing sm.IsInState(Connected) would also return true.
 
-The OnEnter/OnExit handlers behave a little bit differently for substate, when you transition from one state to another, normally the OnExit handler will fire on the state you are leaving, however if you are transitioning to a substate then the OnExit handler will not fire until you leave the substate, for example if S2 is a substate of S1, and S3 is not a substate of either, then if we transition in the following sequence:
+The OnEnter/OnExit handlers behave a little bit differently for substate, when you transition from one state to another, 
+normally the OnExit handler will fire on the state you are leaving, however if you are transitioning to a substate then 
+the OnExit handler will not fire until you leave the substate, for example if S2 is a substate of S1, and S3 is not a 
+substate of either, then if we transition in the following sequence:
 
 S1 -> S2 -> S3
 
 assuming we were already in state S1, then we would see the OnEnter/OnExit handlers fire like:
 S2Enter, S2Exit, S1Exit, S3Enter
 
-Notice the S1Exit didn't fire when we moved to S2.  Whereas if S1,S2,S3 were not substate of one another in any way then transitioning
+Notice the S1Exit didn't fire when we moved to S2.  Whereas if S1,S2,S3 were not substate of one another in any way 
+then transitioning
 
 S1 -> S2 -> S3
 
@@ -153,5 +170,8 @@ S1Exit, S2Enter, S2Exit, S3Enter
 
 
 ## Version History
+### 0.1.1
+* greenstatic fork
+
 ### 0.1.0
-Initial release
+* Initial release

@@ -6,7 +6,7 @@ import (
 	"os"
 	"strings"
 
-	"github.com/markdaws/simple-state-machine"
+	"github.com/greenstatic/simple-state-machine"
 )
 
 func main() {
