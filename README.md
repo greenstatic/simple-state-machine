@@ -1,7 +1,7 @@
 # Simple State Machine
 Go based state machine library, for creating simple state machines to handle workflows. 
 Based on the 
-[https://github.com/dotnet-state-machine/stateless project](https://github.com/dotnet-state-machine/stateless project).
+[https://github.com/dotnet-state-machine/stateless](https://github.com/dotnet-state-machine/stateless) project.
 
 This is a fork of: [https://github.com/markdaws/simple-state-machine](https://github.com/markdaws/simple-state-machine).
 
